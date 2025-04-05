@@ -1,0 +1,87 @@
+[gd_scene load_steps=13 format=3 uid="uid://d253feg4xcoyy"]
+
+[ext_resource type="Script" uid="uid://10ehsg28o8sg" path="res://Script/Players.cs" id="2_0e48y"]
+[ext_resource type="Script" uid="uid://bfq7oef1mq121" path="res://Script/PlayerInput.cs" id="2_0hol4"]
+[ext_resource type="Texture2D" uid="uid://d3s8egp5atl15" path="res://Assets/gobu walk.png" id="3_0hol4"]
+[ext_resource type="Script" uid="uid://df1lrb8jcpnfe" path="res://Script/CharacterMotor.cs" id="3_q6r6c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6r6c"]
+atlas = ExtResource("3_0hol4")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdubu"]
+atlas = ExtResource("3_0hol4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d21ai"]
+atlas = ExtResource("3_0hol4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rj586"]
+atlas = ExtResource("3_0hol4")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4d7sh"]
+atlas = ExtResource("3_0hol4")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir8iy"]
+atlas = ExtResource("3_0hol4")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hqns4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6r6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdubu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d21ai")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rj586")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4d7sh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ir8iy")
+}],
+"loop": true,
+"name": &"run",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x0ka3"]
+radius = 7.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Players" type="Node2D" parent="." node_paths=PackedStringArray("_input", "_motor")]
+position = Vector2(116, 122)
+script = ExtResource("2_0e48y")
+_input = NodePath("Inputs")
+_motor = NodePath("PlayerBody")
+
+[node name="PlayerBody" type="CharacterBody2D" parent="Players"]
+script = ExtResource("3_q6r6c")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Players/PlayerBody"]
+position = Vector2(-78, -81)
+sprite_frames = SubResource("SpriteFrames_hqns4")
+animation = &"run"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Players/PlayerBody"]
+position = Vector2(-77, -78)
+shape = SubResource("CircleShape2D_x0ka3")
+
+[node name="Inputs" type="Node2D" parent="Players"]
+position = Vector2(-48, -79)
+script = ExtResource("2_0hol4")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(1, 1)
+zoom = Vector2(0.1, 0.1)
